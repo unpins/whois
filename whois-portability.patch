@@ -1,0 +1,28 @@
+--- a/config.h	2026-06-07 15:03:39.119083241 -0300
++++ b/config.h	2026-06-07 15:04:04.958057400 -0300
+@@ -89,6 +89,25 @@
+ #define HAVE_GETTIMEOFDAY
+ 
+ /*
++ * unpins: the per-libc blocks above only recognise glibc / Apple / *BSD /
++ * Solaris, so they miss two features that are in fact present on the libcs we
++ * build against. Enable them explicitly (guarded, so we never redefine what a
++ * block above already set):
++ *   - musl (pkgsStatic Linux) and Cosmopolitan (Windows) both provide
++ *     getopt_long(); without HAVE_GETOPT_LONG the GETOPT_LONGISH macro falls
++ *     back to plain getopt() and every long option (--host, --verbose,
++ *     --version, --help, ...) is silently dropped.
++ *   - both also provide a static, IPv6-capable getaddrinfo(); without
++ *     HAVE_GETADDRINFO whois resolves via the legacy gethostbyname() path.
++ */
++#ifndef HAVE_GETOPT_LONG
++# define HAVE_GETOPT_LONG
++#endif
++#ifndef HAVE_GETADDRINFO
++# define HAVE_GETADDRINFO
++#endif
++
++/*
+  * Please send patches to correctly ignore old releases which lack a RNG
+  * and add more systems which have one.
+  */
