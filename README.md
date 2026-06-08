@@ -1,13 +1,13 @@
 # whois
 
-Standalone build of [whois](https://github.com/rfc1036/whois) — the intelligent WHOIS client from Debian.
+[whois](https://github.com/rfc1036/whois) — the intelligent WHOIS client from Debian. A single self-contained binary, built natively for Linux, macOS, and Windows.
 
 [![CI](https://github.com/unpins/whois/actions/workflows/whois.yml/badge.svg)](https://github.com/unpins/whois/actions)
 ![Linux](https://img.shields.io/badge/Linux-✓-success?logo=linux&logoColor=white)
 ![macOS](https://img.shields.io/badge/macOS-✓-success?logo=apple&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-✓-success?logo=windows&logoColor=white)
 
-Part of the [unpins](https://unpins.org) project — native single-binary builds with no third-party runtime dependencies.
+Part of the [unpins](https://unpins.org) catalog; install it with [`unpin`](https://github.com/unpins/unpin): `unpin install whois`.
 
 ## Usage
 
@@ -24,6 +24,10 @@ unpin install whois
 ```
 
 It picks the appropriate WHOIS server for most queries automatically; pass `-h <server>` to override.
+
+## Man pages
+
+`whois.1` and `whois.conf.5` are embedded in the binary — read them with `unpin man whois` and `unpin man whois whois.conf`.
 
 ## Build locally
 
@@ -43,10 +47,6 @@ The first invocation will offer to add the [unpins.cachix.org](https://unpins.ca
 ## Manual download
 
 The [Releases](https://github.com/unpins/whois/releases) page has standalone binaries for manual download.
-
-## Man pages
-
-`whois.1` and `whois.conf.5` are embedded in the binary — read them with `unpin man whois` and `unpin man whois whois.conf`.
 
 ## Build notes
 
