@@ -27,6 +27,7 @@
   outputs = { self, unpins-lib }:
     unpins-lib.lib.mkStandaloneFlake {
       inherit self;
+      dnsFallback = true; # resolves hostnames; opt into the Android DNS fallback
       name = "whois";
       # whois has no -V/--version short form (-V sets the client tag); the long
       # `--version` only works once whois-portability.patch turns on
