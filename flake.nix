@@ -34,6 +34,11 @@
       # getopt_long. Banner is "Version 5.6.6." — match on the stable prefix.
       smoke = [ "--version" ];
       smokePattern = "Version";
+
+      # Build via the unpin-llvm engine + emit a bitcode multicall module.
+      engine = "unpin-llvm";
+      multicall.programs = [{ name = "whois"; }];
+
       build = pkgs:
         let
           inherit (pkgs) lib;
