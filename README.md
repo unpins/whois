@@ -50,6 +50,6 @@ The [Releases](https://github.com/unpins/whois/releases) page has standalone bin
 
 ## Build notes
 
-- **Windows** uses [Cosmopolitan](https://justine.lol/cosmopolitan/) (cosmocc), not mingw. whois is a pure BSD-socket client — its source includes `<sys/socket.h>`, `<netinet/in.h>` and `<netdb.h>` directly, which mingw-w64 doesn't provide (the mingw cross fails at the first `#include`). Cosmopolitan's libc implements those sockets over winsock internally, so the same source compiles and the binary queries servers natively on Windows.
-- **IDN (internationalized domain names)** are converted to punycode via `libidn2` on Linux and macOS. The Windows build drops `libidn2` — its `libunistring` dependency has no Cosmopolitan port — so a non-ASCII domain must be entered already-encoded there. ASCII queries are unaffected.
-- The musl (Linux) and Cosmopolitan (Windows) libcs both support `getopt_long` and `getaddrinfo`, but whois's hand-maintained `config.h` only enables them for glibc/Apple/BSD. A small portability patch turns them on so long options (`--host`, `--verbose`, `--version`, …) and IPv6 resolution work on every target.
+- **Windows** uses [Cosmopolitan](https://justine.lol/cosmopolitan/), not mingw: whois is a pure BSD-socket client (`<sys/socket.h>`, `<netinet/in.h>`, `<netdb.h>`), which mingw-w64 doesn't provide.
+- **IDN (internationalized domain names)** are converted to punycode via `libidn2` on Linux and macOS. The Windows build drops `libidn2`, so a non-ASCII domain must be entered already-encoded there. ASCII queries are unaffected.
+- Upstream only enables long options and IPv6 resolution for glibc/Apple/BSD. A small patch turns them on so long options (`--host`, `--verbose`, `--version`, …) and IPv6 resolution work on every target.
