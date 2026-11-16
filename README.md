@@ -53,3 +53,4 @@ The [Releases](https://github.com/unpins/whois/releases) page has standalone bin
 - **Windows** uses [Cosmopolitan](https://justine.lol/cosmopolitan/), not mingw: whois is a pure BSD-socket client (`<sys/socket.h>`, `<netinet/in.h>`, `<netdb.h>`), which mingw-w64 doesn't provide.
 - **IDN (internationalized domain names)** are converted to punycode via `libidn2` on Linux and macOS. The Windows build drops `libidn2`, so a non-ASCII domain must be entered already-encoded there. ASCII queries are unaffected.
 - Upstream only enables long options and IPv6 resolution for glibc/Apple/BSD. A small patch turns them on so long options (`--host`, `--verbose`, `--version`, …) and IPv6 resolution work on every target.
+- **Not included:** `mkpasswd`, built from the same source (nixpkgs ships it as a separate package).

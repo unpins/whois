@@ -14,8 +14,7 @@
   # winsock/_WIN32 guards anywhere in the tree. The mingw cross fails immediately
   # ("sys/socket.h: No such file or directory"); mingw-w64 has no POSIX socket
   # headers — Windows networking goes through winsock2 + WSAStartup, which
-  # upstream doesn't speak. Porting that is the same open-ended winsock rewrite
-  # that keeps git on the mingw WIP shelf. Cosmopolitan's libc implements BSD
+  # upstream doesn't speak. Cosmopolitan's libc implements BSD
   # sockets on Windows over winsock internally (superconfigure ships
   # curl/wget/openssh this way), so the cosmo cross compiles whois.c unchanged.
   # The cosmo recipe (drop libidn2) lives in ./cosmo.nix.
@@ -37,6 +36,8 @@
 
       # Build via the unpin-llvm engine + emit a bitcode multicall module.
       engine = "unpin-llvm";
+      # Only whois, as in nixpkgs: mkpasswd from the same source is its own
+      # package there (with libxcrypt).
       multicall.programs = [{ name = "whois"; }];
 
       build = pkgs:
