@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Internationalized domain names (`whois bücher.com`) are sent as punycode on
+  Linux and macOS, as the README says; they went out as raw UTF-8 and most
+  servers found nothing.
+
 ## [5.6.6-2] - 2026-09-26
 
 ### Added

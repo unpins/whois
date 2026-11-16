@@ -42,7 +42,7 @@
 
       build = pkgs:
         pkgs.pkgsStatic.whois.overrideAttrs (oa: {
-          patches = (oa.patches or [ ]) ++ [ ./whois-portability.patch ];
+          patches = (oa.patches or [ ]) ++ [ ./whois-portability.patch ./whois-locale.patch ];
         });
       windowsBuild = import ./cosmo.nix { inherit unpins-lib; };
     };

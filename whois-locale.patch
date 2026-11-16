@@ -1,0 +1,29 @@
+Read the user's locale charset even when NLS is off.
+
+whois calls setlocale() only under ENABLE_NLS, which config.h sets for glibc
+and FreeBSD alone. Elsewhere (musl, macOS) the process stays in the C locale,
+whose charset is ASCII, and two things read that charset: idn2_lookup_ul()
+fails on any non-ASCII domain, so `whois bücher.com` sends the raw UTF-8
+instead of xn--bcher-kva.com, and the reply recoding (HAVE_ICONV) converts
+servers' text to ASCII. setlocale(LC_CTYPE, "") gives both the real charset
+without touching message catalogs.
+
+--- a/whois.c
++++ b/whois.c
+@@ -26,6 +26,7 @@
+ #include <stdarg.h>
+ #include <unistd.h>
+ #include "config.h"
++#include <locale.h>
+ #include <string.h>
+ #include <ctype.h>
+ #include <sys/time.h>
+@@ -154,6 +155,8 @@
+     setlocale(LC_ALL, "");
+     bindtextdomain(NLS_CAT_NAME, LOCALEDIR);
+     textdomain(NLS_CAT_NAME);
++#else
++    setlocale(LC_CTYPE, "");
+ #endif
+ 
+     fstring = malloc(fstringlen + 1);

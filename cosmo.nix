@@ -14,5 +14,5 @@ in
   # Same config.h portability fix as the native build (getopt_long /
   # getaddrinfo are present on Cosmopolitan but its libc-detection blocks miss
   # them). See whois-portability.patch.
-  patches = (oa.patches or [ ]) ++ [ ./whois-portability.patch ];
+  patches = (oa.patches or [ ]) ++ [ ./whois-portability.patch ./whois-locale.patch ];
 })
